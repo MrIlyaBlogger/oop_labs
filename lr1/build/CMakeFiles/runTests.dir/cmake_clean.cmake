@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/runTests.dir/src/oop_lr1.cpp.o"
+  "CMakeFiles/runTests.dir/src/oop_lr1.cpp.o.d"
   "CMakeFiles/runTests.dir/tests/test.cpp.o"
   "CMakeFiles/runTests.dir/tests/test.cpp.o.d"
   "runTests"

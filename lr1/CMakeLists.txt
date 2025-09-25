@@ -1,12 +1,12 @@
 cmake_minimum_required(VERSION 3.14)
-project(BracketTest)
+project(BracketChecker)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(FetchContent)
 
-# Скачиваем Google Test
+# Google Test
 FetchContent_Declare(
     googletest
     GIT_REPOSITORY https://github.com/google/googletest.git
@@ -16,13 +16,18 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-# Указываем путь к include
+# Включаем директорию с заголовками
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-# Собираем исполняемый файл для тестов
+# Исполняемый файл для тестов
 add_executable(runTests
     src/oop_lr1.cpp
     tests/test.cpp
 )
-
 target_link_libraries(runTests gtest_main)
+
+# Исполняемый файл для ручного запуска
+add_executable(mainApp
+    src/oop_lr1.cpp
+    main.cpp
+)

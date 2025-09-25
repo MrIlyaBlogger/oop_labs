@@ -281,4 +281,4 @@ CMakeFiles/runTests.dir/tests/test.cpp.o: \
  /home/mrilyablogger/oop_labs/lr1/build/_deps/googletest-src/googletest/include/gtest/gtest-typed-test.h \
  /home/mrilyablogger/oop_labs/lr1/build/_deps/googletest-src/googletest/include/gtest/gtest_pred_impl.h \
  /home/mrilyablogger/oop_labs/lr1/build/_deps/googletest-src/googletest/include/gtest/gtest_prod.h \
- /home/mrilyablogger/oop_labs/lr1/tests/../oop_lr1.cpp
+ /home/mrilyablogger/oop_labs/lr1/include/oop_lr1.h

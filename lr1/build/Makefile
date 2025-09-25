@@ -236,6 +236,30 @@ gtest_main/fast:
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
+src/oop_lr1.o: src/oop_lr1.cpp.o
+.PHONY : src/oop_lr1.o
+
+# target to build an object file
+src/oop_lr1.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/src/oop_lr1.cpp.o
+.PHONY : src/oop_lr1.cpp.o
+
+src/oop_lr1.i: src/oop_lr1.cpp.i
+.PHONY : src/oop_lr1.i
+
+# target to preprocess a source file
+src/oop_lr1.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/src/oop_lr1.cpp.i
+.PHONY : src/oop_lr1.cpp.i
+
+src/oop_lr1.s: src/oop_lr1.cpp.s
+.PHONY : src/oop_lr1.s
+
+# target to generate assembly for a file
+src/oop_lr1.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/src/oop_lr1.cpp.s
+.PHONY : src/oop_lr1.cpp.s
+
 tests/test.o: tests/test.cpp.o
 .PHONY : tests/test.o
 
@@ -278,6 +302,9 @@ help:
 	@echo "... gtest"
 	@echo "... gtest_main"
 	@echo "... runTests"
+	@echo "... src/oop_lr1.o"
+	@echo "... src/oop_lr1.i"
+	@echo "... src/oop_lr1.s"
 	@echo "... tests/test.o"
 	@echo "... tests/test.i"
 	@echo "... tests/test.s"
