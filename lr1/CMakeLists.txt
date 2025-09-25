@@ -16,8 +16,12 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+# Указываем путь к include
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
 # Собираем исполняемый файл для тестов
 add_executable(runTests
+    src/oop_lr1.cpp
     tests/test.cpp
 )
 

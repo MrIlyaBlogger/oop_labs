@@ -1,4 +1,5 @@
 #include <string>
+#include "oop_lr1.h"
 
 bool isValid(const std::string& s) {
     int counter = 0;
