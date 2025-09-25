@@ -1,0 +1,5 @@
+if(EXISTS "/home/mrilyablogger/oop_labs/lr1/build/runTests[1]_tests.cmake")
+  include("/home/mrilyablogger/oop_labs/lr1/build/runTests[1]_tests.cmake")
+else()
+  add_test(runTests_NOT_BUILT runTests_NOT_BUILT)
+endif()
