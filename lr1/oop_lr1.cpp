@@ -1,4 +1,3 @@
-#include <iostream>
 #include <string>
 
 bool isValid(const std::string& s) {
