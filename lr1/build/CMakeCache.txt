@@ -18,13 +18,13 @@
 BUILD_GMOCK:BOOL=ON
 
 //Value Computed by CMake
-BracketTest_BINARY_DIR:STATIC=/home/mrilyablogger/oop_labs/lr1/build
+BracketChecker_BINARY_DIR:STATIC=/home/mrilyablogger/oop_labs/lr1/build
 
 //Value Computed by CMake
-BracketTest_IS_TOP_LEVEL:STATIC=ON
+BracketChecker_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-BracketTest_SOURCE_DIR:STATIC=/home/mrilyablogger/oop_labs/lr1
+BracketChecker_SOURCE_DIR:STATIC=/home/mrilyablogger/oop_labs/lr1
 
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
@@ -208,7 +208,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=BracketTest
+CMAKE_PROJECT_NAME:STATIC=BracketChecker
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=1.16.0

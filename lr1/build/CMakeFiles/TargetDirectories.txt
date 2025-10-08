@@ -1,4 +1,5 @@
 /home/mrilyablogger/oop_labs/lr1/build/CMakeFiles/runTests.dir
+/home/mrilyablogger/oop_labs/lr1/build/CMakeFiles/mainApp.dir
 /home/mrilyablogger/oop_labs/lr1/build/CMakeFiles/test.dir
 /home/mrilyablogger/oop_labs/lr1/build/CMakeFiles/edit_cache.dir
 /home/mrilyablogger/oop_labs/lr1/build/CMakeFiles/rebuild_cache.dir

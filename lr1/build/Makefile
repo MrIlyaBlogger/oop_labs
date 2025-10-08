@@ -185,6 +185,19 @@ runTests/fast:
 .PHONY : runTests/fast
 
 #=============================================================================
+# Target rules for targets named mainApp
+
+# Build rule for target.
+mainApp: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mainApp
+.PHONY : mainApp
+
+# fast build rule for target.
+mainApp/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mainApp.dir/build.make CMakeFiles/mainApp.dir/build
+.PHONY : mainApp/fast
+
+#=============================================================================
 # Target rules for targets named gmock
 
 # Build rule for target.
@@ -236,12 +249,37 @@ gtest_main/fast:
 	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
 .PHONY : gtest_main/fast
 
+main.o: main.cpp.o
+.PHONY : main.o
+
+# target to build an object file
+main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mainApp.dir/build.make CMakeFiles/mainApp.dir/main.cpp.o
+.PHONY : main.cpp.o
+
+main.i: main.cpp.i
+.PHONY : main.i
+
+# target to preprocess a source file
+main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mainApp.dir/build.make CMakeFiles/mainApp.dir/main.cpp.i
+.PHONY : main.cpp.i
+
+main.s: main.cpp.s
+.PHONY : main.s
+
+# target to generate assembly for a file
+main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mainApp.dir/build.make CMakeFiles/mainApp.dir/main.cpp.s
+.PHONY : main.cpp.s
+
 src/oop_lr1.o: src/oop_lr1.cpp.o
 .PHONY : src/oop_lr1.o
 
 # target to build an object file
 src/oop_lr1.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/src/oop_lr1.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mainApp.dir/build.make CMakeFiles/mainApp.dir/src/oop_lr1.cpp.o
 .PHONY : src/oop_lr1.cpp.o
 
 src/oop_lr1.i: src/oop_lr1.cpp.i
@@ -250,6 +288,7 @@ src/oop_lr1.i: src/oop_lr1.cpp.i
 # target to preprocess a source file
 src/oop_lr1.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/src/oop_lr1.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mainApp.dir/build.make CMakeFiles/mainApp.dir/src/oop_lr1.cpp.i
 .PHONY : src/oop_lr1.cpp.i
 
 src/oop_lr1.s: src/oop_lr1.cpp.s
@@ -258,6 +297,7 @@ src/oop_lr1.s: src/oop_lr1.cpp.s
 # target to generate assembly for a file
 src/oop_lr1.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/runTests.dir/build.make CMakeFiles/runTests.dir/src/oop_lr1.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mainApp.dir/build.make CMakeFiles/mainApp.dir/src/oop_lr1.cpp.s
 .PHONY : src/oop_lr1.cpp.s
 
 tests/test.o: tests/test.cpp.o
@@ -301,7 +341,11 @@ help:
 	@echo "... gmock_main"
 	@echo "... gtest"
 	@echo "... gtest_main"
+	@echo "... mainApp"
 	@echo "... runTests"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 	@echo "... src/oop_lr1.o"
 	@echo "... src/oop_lr1.i"
 	@echo "... src/oop_lr1.s"
