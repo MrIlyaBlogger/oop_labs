@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "oop_lr1.h"  // подключаем через include
+#include "oop_lr1.hpp"
 
 TEST(BracketTest, EmptyString) {
     EXPECT_TRUE(isValid(""));

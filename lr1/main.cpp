@@ -1,5 +1,5 @@
 #include <iostream>
-#include "include/oop_lr1.h"
+#include "include/oop_lr1.hpp"
 
 int main() {
     std::string input;

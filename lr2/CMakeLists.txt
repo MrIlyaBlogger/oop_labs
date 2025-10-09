@@ -21,13 +21,13 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 # Исполняемый файл для тестов
 add_executable(runTests
-    src/oop_lr1.cpp
+    src/oop_lr2.cpp
     tests/test.cpp
 )
 target_link_libraries(runTests gtest_main)
 
 # Исполняемый файл для ручного запуска
 add_executable(mainApp
-    src/oop_lr1.cpp
+    src/oop_lr2.cpp
     main.cpp
 )
