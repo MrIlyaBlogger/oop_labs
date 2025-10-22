@@ -32,14 +32,14 @@ int main() {
         } else if (cmd == 's') {
             double total = 0.0;
             for (auto f : arr) total += double(*f);
-            std::cout << "Total area = " << total << "\n";
+            std::cout << "Суммарная площадь = " << total << "\n";
         } else if (cmd == 'd') {
             size_t idx; std::cin >> idx;
             if (idx < arr.size()) {
                 delete arr[idx];
                 arr.erase(arr.begin() + idx);
-                std::cout << "Deleted\n";
-            } else std::cout << "Bad index\n";
+                std::cout << "Удалено\n";
+            } else std::cout << "Неверный индекс\n";
         } else if (cmd == 'q') {
             break;
         }
