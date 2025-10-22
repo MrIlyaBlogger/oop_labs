@@ -16,7 +16,9 @@ static double polygon_area_signed(const std::vector<Point> &pts) {
 static Point polygon_centroid(const std::vector<Point> &pts) {
     Point c{0.0, 0.0};
     double a = polygon_area_signed(pts);
-    if (almost_eq(a, 0.0)) return c;
+    if (almost_eq(a, 0.0)) {
+        return c;
+    }
     double cx = 0.0;
     double cy = 0.0;
     size_t n = pts.size();
@@ -42,7 +44,9 @@ void Quadrilateral::print(std::ostream &os) const {
     os << "[";
     for (size_t i = 0; i < v.size(); ++i) {
         os << "(" << v[i].x << "," << v[i].y << ")";
-        if (i + 1 < v.size()) os << ", ";
+        if (i + 1 < v.size()) {
+            os << ", ";
+        }
     }
     os << "]";
 }
@@ -56,7 +60,9 @@ bool Quadrilateral::equals(const Figure &other) const {
     auto p = dynamic_cast<const Quadrilateral *>(&other);
     if (!p) return false;
     for (size_t i = 0; i < 4; ++i) {
-        if (!almost_eq(v[i].x, p->v[i].x) || !almost_eq(v[i].y, p->v[i].y)) return false;
+        if (!almost_eq(v[i].x, p->v[i].x) || !almost_eq(v[i].y, p->v[i].y)) {
+            return false;
+        }
     }
     return true;
 }

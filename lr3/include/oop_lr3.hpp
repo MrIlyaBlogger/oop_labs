@@ -31,7 +31,9 @@ public:
 
     virtual Figure *clone() const = 0;
 
-    explicit operator double() const { return area(); }
+    explicit operator double() const { 
+        return area(); 
+    }
 
     virtual bool equals(const Figure &other) const = 0;
 };
@@ -66,7 +68,9 @@ public:
     Square &operator=(Square &&other) noexcept = default;
 
     void read(std::istream &is) override;
-    Figure *clone() const override { return new Square(*this); }
+    Figure *clone() const override { 
+        return new Square(*this); 
+    }
 };
 
 class Rectangle : public Quadrilateral {
@@ -80,7 +84,9 @@ public:
     Rectangle &operator=(Rectangle &&other) noexcept = default;
 
     void read(std::istream &is) override;
-    Figure *clone() const override { return new Rectangle(*this); }
+    Figure *clone() const override { 
+        return new Rectangle(*this); 
+    }
 };
 
 class Trapezoid : public Quadrilateral {
@@ -94,7 +100,9 @@ public:
     Trapezoid &operator=(Trapezoid &&other) noexcept = default;
 
     void read(std::istream &is) override;
-    Figure *clone() const override { return new Trapezoid(*this); }
+    Figure *clone() const override { 
+        return new Trapezoid(*this); 
+    }
 };
 
 inline std::ostream &operator<<(std::ostream &os, const Figure &f) {
