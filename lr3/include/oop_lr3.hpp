@@ -21,35 +21,26 @@ class Figure {
 public:
     virtual ~Figure() = default;
 
-    // Centroid of the polygon
     virtual Point centroid() const = 0;
 
-    // Print vertices to ostream
     virtual void print(std::ostream &os) const = 0;
 
-    // Read vertices from istream
     virtual void read(std::istream &is) = 0;
 
-    // Area of polygon
     virtual double area() const = 0;
 
-    // Polymorphic copy
     virtual Figure *clone() const = 0;
 
-    // conversion to double -> area
     explicit operator double() const { return area(); }
 
-    // equality
     virtual bool equals(const Figure &other) const = 0;
 };
 
-// Quadrilateral helper base for 4-vertex figures
 class Quadrilateral : public Figure {
 public:
     Quadrilateral() = default;
     Quadrilateral(const std::array<Point,4> &verts) : v(verts) {}
 
-    // copy and move
     Quadrilateral(const Quadrilateral &other) = default;
     Quadrilateral(Quadrilateral &&other) noexcept = default;
     Quadrilateral &operator=(const Quadrilateral &other) = default;
@@ -69,7 +60,6 @@ public:
     Square() = default;
     Square(const std::array<Point,4> &verts) : Quadrilateral(verts) {}
 
-    // copy/move override to satisfy requirement
     Square(const Square &other) = default;
     Square(Square &&other) noexcept = default;
     Square &operator=(const Square &other) = default;
@@ -107,14 +97,12 @@ public:
     Figure *clone() const override { return new Trapezoid(*this); }
 };
 
-// Non-member stream operators
 inline std::ostream &operator<<(std::ostream &os, const Figure &f) {
     f.print(os);
     return os;
 }
 
-// operator>> will be provided per-type in the cpp file as free functions
 
-} // namespace oop
+}
 
-#endif // OOP_LR3_HPP
+#endif

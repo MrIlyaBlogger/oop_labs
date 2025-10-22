@@ -3,7 +3,6 @@
 
 namespace oop {
 
-// Shoelace formula for area (signed)
 static double polygon_area_signed(const std::vector<Point> &pts) {
     double a = 0.0;
     size_t n = pts.size();
@@ -14,7 +13,6 @@ static double polygon_area_signed(const std::vector<Point> &pts) {
     return a / 2.0;
 }
 
-// centroid for polygon
 static Point polygon_centroid(const std::vector<Point> &pts) {
     Point c{0.0, 0.0};
     double a = polygon_area_signed(pts);
@@ -64,7 +62,7 @@ bool Quadrilateral::equals(const Figure &other) const {
 }
 
 void Square::read(std::istream &is) {
-    // Expect 4 points
+
     for (int i = 0; i < 4; ++i) {
         is >> v[i].x >> v[i].y;
     }
@@ -82,4 +80,4 @@ void Trapezoid::read(std::istream &is) {
     }
 }
 
-} // namespace oop
+}
