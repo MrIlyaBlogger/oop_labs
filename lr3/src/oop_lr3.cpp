@@ -58,7 +58,9 @@ double Quadrilateral::area() const {
 
 bool Quadrilateral::equals(const Figure &other) const {
     auto p = dynamic_cast<const Quadrilateral *>(&other);
-    if (!p) return false;
+    if (!p) {
+        return false;
+    }
     for (size_t i = 0; i < 4; ++i) {
         if (!almost_eq(v[i].x, p->v[i].x) || !almost_eq(v[i].y, p->v[i].y)) {
             return false;
