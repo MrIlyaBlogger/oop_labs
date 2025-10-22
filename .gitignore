@@ -1,0 +1,46 @@
+# CMake build artifacts
+/build/
+**/build/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Object files and libs
+*.o
+*.obj
+*.lib
+*.a
+*.so
+*.dylib
+
+# Binaries
+/bin/
+/lib/
+
+# Testing
+/Testing/
+
+# Qt Creator
+*.pro.user
+
+# IDEs
+.vscode/
+.idea/
+*.suo
+*.user
+*.userprefs
+
+# macOS
+.DS_Store
+
+# Logs and temporary files
+*.log
+
+# Google Test build directories inside projects
+_deps/
