@@ -17,6 +17,8 @@ inline bool almost_eq(double a, double b, double eps = 1e-9) {
     return std::fabs(a - b) <= eps;
 }
 
+class Square; class Rectangle; class Trapezoid;
+
 class Figure {
 public:
     virtual ~Figure() = default;
@@ -110,6 +112,22 @@ inline std::ostream &operator<<(std::ostream &os, const Figure &f) {
     return os;
 }
 
+inline std::istream& operator>>(std::istream& is, Figure*& figure) {
+    int type;
+    is >> type;
+    if (type == 1) {
+        figure = new Square();
+    } else if (type == 2) {
+        figure = new Rectangle();
+    } else if (type == 3) {
+        figure = new Trapezoid();
+    } else { 
+        figure = nullptr; 
+        return is; 
+    }
+    figure->read(is);
+    return is;
+}
 
 }
 

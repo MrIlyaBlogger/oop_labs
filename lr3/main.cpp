@@ -16,20 +16,13 @@ int main() {
             break;
         }
         if (cmd == 'a') {
-            int t; std::cin >> t;
-            Figure *f = nullptr;
-            if (t == 1) {
-                f = new Square();
-            } else if (t == 2) {
-                f = new Rectangle();
-            } else if (t == 3) {
-                f = new Trapezoid();
-            } else { 
-                std::cout << "Неверный тип\n";
+            Figure* f = nullptr;
+            std::cout << "Введите тип (1-квадрат, 2-прямоугольник, 3-трапеция) и 4 вершины (x y):\n";
+            std::cin >> f;
+            if (!f) { 
+                std::cout << "Неверный тип фигуры\n"; 
                 continue; 
             }
-            std::cout << "Введите 4 вершины (x y) по порядку:\n";
-            f->read(std::cin);
             arr.push_back(f);
         } else if (cmd == 'p') {
             for (size_t i = 0; i < arr.size(); ++i) {
