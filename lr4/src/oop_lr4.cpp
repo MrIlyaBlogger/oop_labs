@@ -16,7 +16,7 @@ double Triangle<T>::area() const {
 
 template <typename T>
 Point<T> Triangle<T>::center() const {
-    return {(points[0].x + points[1].x + points[2].x) / 3.0, (points[0].y + points[1].y + points[2].y) / 3.0};
+    return {static_cast<T>((points[0].x + points[1].x + points[2].x) / 3.0), static_cast<T>((points[0].y + points[1].y + points[2].y) / 3.0)};
 }
 
 template <typename T>
@@ -47,7 +47,7 @@ Point<T> Square<T>::center() const {
         cx += p.x;
         cy += p.y;
     }
-    return {cx / 4.0, cy / 4.0};
+    return {static_cast<T>(cx / 4.0), static_cast<T>(cy / 4.0)};
 }
 
 template <typename T>
@@ -82,7 +82,7 @@ Point<T> Octagon<T>::center() const {
         cx += p.x;
         cy += p.y;
     }
-    return {cx / 8.0, cy / 8.0};
+    return {static_cast<T>(cx / 8.0), static_cast<T>(cy / 8.0)};
 }
 
 template <typename T>
