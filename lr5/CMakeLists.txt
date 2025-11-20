@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(BracketChecker)
+project(oop_lr5 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,13 +21,15 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 # Исполняемый файл для тестов
 add_executable(runTests
-    src/oop_lr4.cpp
+    src/oop_lr5.cpp
     tests/test.cpp
 )
 target_link_libraries(runTests gtest_main)
+include(GoogleTest)
+gtest_discover_tests(runTests)
 
 # Исполняемый файл для ручного запуска
 add_executable(mainApp
-    src/oop_lr4.cpp
+    src/oop_lr5.cpp
     main.cpp
 )
