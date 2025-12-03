@@ -1,0 +1,6 @@
+Bear Ursa 10 10
+Bittern Birdy 20 20
+Desman Des 30 25
+Bear Brutus 100 120
+Bittern Quiet 105 118
+Desman Sneaky 300 305
