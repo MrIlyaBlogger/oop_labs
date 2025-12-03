@@ -32,11 +32,19 @@ std::string to_string(NPCType type) {
 std::optional<NPCType> npc_type_from_string(const std::string& value) {
     std::string lowered;
     lowered.reserve(value.size());
-    for (char c : value) lowered.push_back(static_cast<char>(std::tolower(static_cast<unsigned char>(c))));
+    for (char c : value) {
+        lowered.push_back(static_cast<char>(std::tolower(static_cast<unsigned char>(c))));
+    }
 
-    if (lowered == "bear" || lowered == "1") return NPCType::Bear;
-    if (lowered == "bittern" || lowered == "2") return NPCType::Bittern;
-    if (lowered == "desman" || lowered == "3") return NPCType::Desman;
+    if (lowered == "bear" || lowered == "1") {
+        return NPCType::Bear;
+    }
+    if (lowered == "bittern" || lowered == "2") {
+        return NPCType::Bittern;
+    }
+    if (lowered == "desman" || lowered == "3") {
+        return NPCType::Desman;
+    }
     return std::nullopt;
 }
 
@@ -61,23 +69,36 @@ void NPC::print(std::ostream& os) const {
     os << to_string(type()) << " \"" << name_ << "\" at (" << pos_.x << ", " << pos_.y << ")";
 }
 
-Bear::Bear(std::string name, Point pos) : NPC(std::move(name), pos) {}
-Bittern::Bittern(std::string name, Point pos) : NPC(std::move(name), pos) {}
-Desman::Desman(std::string name, Point pos) : NPC(std::move(name), pos) {}
+Bear::Bear(std::string name, Point pos) : NPC(std::move(name), pos) {
+}
+
+Bittern::Bittern(std::string name, Point pos) : NPC(std::move(name), pos) {
+}
+
+Desman::Desman(std::string name, Point pos) : NPC(std::move(name), pos) {
+}
 
 FightResult resolve_combat(NPC& first, NPC& second) {
     FightResult result{};
 
     class FirstVisitor : public NPCVisitor {
     public:
-        FirstVisitor(NPC& second, FightResult& res) : second_(second), res_(res) {}
+        FirstVisitor(NPC& second, FightResult& res) : second_(second), res_(res) {
+        }
 
         void visit(Bear&) override {
             class SecondVisitor : public NPCVisitor {
             public:
-                explicit SecondVisitor(FightResult& res) : res_(res) {}
-                void visit(Bear&) override {}
-                void visit(Bittern&) override { res_.second_dies = true; }
+                explicit SecondVisitor(FightResult& res) : res_(res) {
+                }
+
+                void visit(Bear&) override {
+                }
+
+                void visit(Bittern&) override {
+                    res_.second_dies = true;
+                }
+
                 void visit(Desman&) override {
                     res_.first_dies = true;
                     res_.second_dies = true;
@@ -93,10 +114,18 @@ FightResult resolve_combat(NPC& first, NPC& second) {
         void visit(Bittern&) override {
             class SecondVisitor : public NPCVisitor {
             public:
-                explicit SecondVisitor(FightResult& res) : res_(res) {}
-                void visit(Bear&) override { res_.first_dies = true; }
-                void visit(Bittern&) override {}
-                void visit(Desman&) override {}
+                explicit SecondVisitor(FightResult& res) : res_(res) {
+                }
+
+                void visit(Bear&) override {
+                    res_.first_dies = true;
+                }
+
+                void visit(Bittern&) override {
+                }
+
+                void visit(Desman&) override {
+                }
             private:
                 FightResult& res_;
             };
@@ -108,13 +137,19 @@ FightResult resolve_combat(NPC& first, NPC& second) {
         void visit(Desman&) override {
             class SecondVisitor : public NPCVisitor {
             public:
-                explicit SecondVisitor(FightResult& res) : res_(res) {}
+                explicit SecondVisitor(FightResult& res) : res_(res) {
+                }
+
                 void visit(Bear&) override {
                     res_.first_dies = true;
                     res_.second_dies = true;
                 }
-                void visit(Bittern&) override {}
-                void visit(Desman&) override {}
+
+                void visit(Bittern&) override {
+                }
+
+                void visit(Desman&) override {
+                }
             private:
                 FightResult& res_;
             };
@@ -137,7 +172,8 @@ void ConsoleObserver::on_event(const std::string& message) {
     std::cout << message << std::endl;
 }
 
-FileObserver::FileObserver(const std::string& filename) : filename_(filename) {}
+FileObserver::FileObserver(const std::string& filename) : filename_(filename) {
+}
 
 void FileObserver::on_event(const std::string& message) {
     std::ofstream out(filename_, std::ios::app);
@@ -157,13 +193,19 @@ std::unique_ptr<NPC> NPCFactory::create(NPCType type, std::string name, Point po
 
 std::unique_ptr<NPC> NPCFactory::from_stream(std::istream& is) {
     std::string type_str;
-    if (!(is >> type_str)) return nullptr;
+    if (!(is >> type_str)) {
+        return nullptr;
+    }
     std::string name;
     Point pos{};
-    if (!(is >> name >> pos.x >> pos.y)) return nullptr;
+    if (!(is >> name >> pos.x >> pos.y)) {
+        return nullptr;
+    }
 
     auto type = npc_type_from_string(type_str);
-    if (!type) return nullptr;
+    if (!type) {
+        return nullptr;
+    }
 
     return create(*type, name, pos);
 }
@@ -208,10 +250,14 @@ bool Dungeon::save(const std::string& filename) const {
     if (!dir.empty()) {
         std::error_code ec;
         std::filesystem::create_directories(dir, ec);
-        if (ec) return false;
+        if (ec) {
+            return false;
+        }
     }
     std::ofstream out(filename);
-    if (!out) return false;
+    if (!out) {
+        return false;
+    }
 
     for (const auto& npc : npcs_) {
         const Point& p = npc->position();
@@ -222,13 +268,17 @@ bool Dungeon::save(const std::string& filename) const {
 
 bool Dungeon::load(const std::string& filename) {
     std::ifstream in(filename);
-    if (!in) return false;
+    if (!in) {
+        return false;
+    }
 
     std::vector<std::unique_ptr<NPC>> loaded;
     while (true) {
         auto npc = NPCFactory::from_stream(in);
         if (!npc) {
-            if (in.eof()) break;
+            if (in.eof()) {
+                break;
+            }
             return false;
         }
         if (std::any_of(loaded.begin(), loaded.end(),
@@ -249,14 +299,22 @@ void Dungeon::notify(const std::string& msg) const {
 }
 
 void Dungeon::battle(double range) {
-    if (range < 0) range = 0;
+    if (range < 0) {
+        range = 0;
+    }
     std::vector<bool> dead(npcs_.size(), false);
 
     for (std::size_t i = 0; i < npcs_.size(); ++i) {
-        if (dead[i]) continue;
+        if (dead[i]) {
+            continue;
+        }
         for (std::size_t j = i + 1; j < npcs_.size(); ++j) {
-            if (dead[j]) continue;
-            if (npcs_[i]->distance_to(*npcs_[j]) > range) continue;
+            if (dead[j]) {
+                continue;
+            }
+            if (npcs_[i]->distance_to(*npcs_[j]) > range) {
+                continue;
+            }
 
             auto res = resolve_combat(*npcs_[i], *npcs_[j]);
             if (res.first_dies && res.second_dies) {
@@ -277,9 +335,15 @@ void Dungeon::battle(double range) {
                 notify(ss.str());
             }
 
-            if (res.first_dies) dead[i] = true;
-            if (res.second_dies) dead[j] = true;
-            if (dead[i]) break;
+            if (res.first_dies) {
+                dead[i] = true;
+            }
+            if (res.second_dies) {
+                dead[j] = true;
+            }
+            if (dead[i]) {
+                break;
+            }
         }
     }
 
