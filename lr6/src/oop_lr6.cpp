@@ -14,7 +14,7 @@ bool valid_point(const Point& p) {
     return p.x >= kMinCoord && p.x <= kMaxCoord && p.y >= kMinCoord && p.y <= kMaxCoord;
 }
 
-} // namespace
+}
 
 double distance(const Point& a, const Point& b) {
     return std::hypot(a.x - b.x, a.y - b.y);
@@ -283,7 +283,6 @@ void Dungeon::battle(double range) {
         }
     }
 
-    // remove dead npcs from end to keep indices valid
     for (std::size_t idx = dead.size(); idx-- > 0;) {
         if (dead[idx]) {
             npcs_.erase(npcs_.begin() + static_cast<std::ptrdiff_t>(idx));
@@ -300,4 +299,4 @@ std::vector<NPCType> Dungeon::snapshot_types() const {
     return out;
 }
 
-} // namespace oop
+}
