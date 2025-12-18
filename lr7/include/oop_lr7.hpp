@@ -4,6 +4,8 @@
 #include <atomic>
 #include <chrono>
 #include <condition_variable>
+#include <fstream>
+#include <memory>
 #include <mutex>
 #include <queue>
 #include <random>
@@ -42,6 +44,25 @@ std::string to_string(NPCType type);
 NPCStats stats_for(NPCType type);
 bool can_attack(NPCType attacker, NPCType defender);
 
+class Observer {
+public:
+    virtual ~Observer() = default;
+    virtual void on_event(const std::string& message) = 0;
+};
+
+class ConsoleObserver : public Observer {
+public:
+    void on_event(const std::string& message) override;
+};
+
+class FileObserver : public Observer {
+public:
+    explicit FileObserver(const std::string& filename = "log.txt");
+    void on_event(const std::string& message) override;
+private:
+    std::string filename_;
+};
+
 class NPC {
 public:
     NPC(NPCType type, std::string name, Point pos);
@@ -71,6 +92,7 @@ public:
 
     void start();
     void stop();
+    void add_observer(std::shared_ptr<Observer> obs);
 
     void print_map(std::ostream& os) const;
     void print_survivors(std::ostream& os) const;
@@ -80,10 +102,13 @@ private:
     void movement_worker();
     void fight_worker();
     void enqueue_fight(std::size_t first, std::size_t second);
+    void notify(const std::string& msg) const;
     bool should_stop() const noexcept { return stop_requested_.load(); }
 
     mutable std::shared_mutex npcs_mutex_;
     std::vector<NPC> npcs_;
+    std::vector<std::shared_ptr<Observer>> observers_;
+    mutable std::shared_mutex observers_mutex_;
 
     std::mutex queue_mutex_;
     std::condition_variable queue_cv_;

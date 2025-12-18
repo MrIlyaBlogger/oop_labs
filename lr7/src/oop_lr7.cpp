@@ -12,6 +12,13 @@ std::mutex& console_mutex() {
     return mtx;
 }
 
+namespace {
+std::mutex& file_mutex() {
+    static std::mutex mtx;
+    return mtx;
+}
+}
+
 double distance(const Point& a, const Point& b) {
     return std::hypot(a.x - b.x, a.y - b.y);
 }
@@ -44,6 +51,22 @@ bool can_attack(NPCType attacker, NPCType defender) {
         return defender == NPCType::Bear;
     }
     return false;
+}
+
+void ConsoleObserver::on_event(const std::string& message) {
+    std::lock_guard<std::mutex> out_lock(console_mutex());
+    std::cout << message << std::endl;
+}
+
+FileObserver::FileObserver(const std::string& filename) : filename_(filename) {
+}
+
+void FileObserver::on_event(const std::string& message) {
+    std::lock_guard<std::mutex> lock(file_mutex());
+    std::ofstream out(filename_, std::ios::app);
+    if (out) {
+        out << message << '\n';
+    }
 }
 
 NPC::NPC(NPCType type, std::string name, Point pos)
@@ -100,6 +123,23 @@ void Simulator::spawn_random_npcs(std::size_t count) {
     }
 }
 
+void Simulator::add_observer(std::shared_ptr<Observer> obs) {
+    if (!obs) {
+        return;
+    }
+    std::lock_guard<std::shared_mutex> lock(observers_mutex_);
+    observers_.push_back(std::move(obs));
+}
+
+void Simulator::notify(const std::string& msg) const {
+    std::shared_lock<std::shared_mutex> lock(observers_mutex_);
+    for (const auto& obs : observers_) {
+        if (obs) {
+            obs->on_event(msg);
+        }
+    }
+}
+
 void Simulator::enqueue_fight(std::size_t first, std::size_t second) {
     std::lock_guard<std::mutex> lock(queue_mutex_);
     fight_queue_.push({first, second});
@@ -109,8 +149,8 @@ void Simulator::enqueue_fight(std::size_t first, std::size_t second) {
 void Simulator::movement_worker() {
     std::mt19937 gen(std::random_device{}());
     std::uniform_real_distribution<double> step_factor(0.0, 1.0);
-    std::uniform_int_distribution<int> axis_dist(0, 1);      // 0 -> x, 1 -> y
-    std::uniform_int_distribution<int> dir_dist(0, 1);       // 0 -> -, 1 -> +
+    std::uniform_int_distribution<int> axis_dist(0, 1);
+    std::uniform_int_distribution<int> dir_dist(0, 1);
 
     while (!should_stop()) {
         {
@@ -223,8 +263,7 @@ void Simulator::fight_worker() {
                 ss << to_string(first.type()) << " \"" << first.name() << "\" killed "
                    << to_string(second.type()) << " \"" << second.name() << "\"";
             }
-            std::lock_guard<std::mutex> out_lock(console_mutex());
-            std::cout << ss.str() << std::endl;
+            notify(ss.str());
         }
     }
 }

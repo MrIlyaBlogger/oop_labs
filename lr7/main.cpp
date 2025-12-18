@@ -2,10 +2,13 @@
 
 #include <chrono>
 #include <iostream>
+#include <memory>
 #include <thread>
 
 int main() {
     oop::Simulator simulator;
+    simulator.add_observer(std::make_shared<oop::ConsoleObserver>());
+    simulator.add_observer(std::make_shared<oop::FileObserver>());
     simulator.start();
 
     const auto start = std::chrono::steady_clock::now();
